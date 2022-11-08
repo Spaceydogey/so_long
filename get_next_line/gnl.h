@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   gnl.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 10:45:57 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/08 17:00:35 by hdelmas          ###   ########.fr       */
+/*   Created: 2022/11/08 17:02:20 by hdelmas           #+#    #+#             */
+/*   Updated: 2022/11/08 17:11:09 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mlx/mlx.h"
-
-int main(void)
-{
-	void	*mlx;
-	void	*mlx_win;
-
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "boop");
-	mlx_loop(mlx);
-}
-
+#ifndef GNL_H
+# define GNL_H
+char	*get_next_line(int fd);
+#endif
