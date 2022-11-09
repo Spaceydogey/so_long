@@ -10,15 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mlx/mlx.h"
+#include "so_long.h"
+#include <stdio.h>
 
 int main(void)
 {
-	void	*mlx;
-	void	*mlx_win;
-
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "boop");
-	mlx_loop(mlx);
+	char	*map_file = "maps/test_map.ber";
+	int 	i = 0;
+	char 	**map;
+	
+	map = parse_map(map_file);
+	while (i < 5)
+	{
+		printf("%s",map[i]);
+		i++;
+	}
+	free_map(map);
 }
 
