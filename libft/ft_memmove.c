@@ -6,13 +6,13 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 11:32:35 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/10/14 10:02:51 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/10 16:04:35 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(void *dst, void *src, size_t len)
 {
 	char	*cpy;
 	char	*temp_src;

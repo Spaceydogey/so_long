@@ -1,7 +1,7 @@
-#MAKEFILE FOR MACOS (INTEL)
+#MAKEFILE FOR LINUX 
 NAME = so_long
 
-FILES = main.c parse_map.c error.c
+FILES = main.c parse_map.c
 
 SRCS = $(addprefix src/, $(FILES))
 
@@ -9,25 +9,23 @@ OBJ = $(SRCS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror
 
-FFLAGS = -fsanitize=address -g
-
 CC = cc
 
 RM = rm -f
 
 ###__MLX__###
-MLX_DIR = mlx 
+MLX_DIR = mlx_linux 
 
 MLX_PATH = $(MLXDIR)/libmlx.a
 
-MLX = -Imlx -Lmlx -lmlx -framework OpenGL -framework AppKit mlx/libmlx.a
+MLX = -Lmlx_linux -lmlx_Linux -L/usr/lib -I$(MLX_DIR) -lXext -lX11 -lm -lz
 
 ###__COMPILATION__###
 $(NAME): $(OBJ)
-		$(CC) $(CFLAGS) $(FFLAGS) $(MLX) get_next_line/gnl.a libft/libft.a $(OBJ) -o $(NAME)
-
+		$(CC) -fsanitize=address -g $(CFLAGS) $(OBJ) $(MLX) get_next_line/gnl.a libft/libft.a -o $(NAME)
+		
 .c.o:
-		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) -I/usr/include -I$(MLX_DIR) -O3 -c $< -o $(<:.c=.o)
 
 ###__RULES__###
 all: $(NAME)

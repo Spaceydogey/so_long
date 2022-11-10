@@ -1,9 +1,9 @@
 #include "so_long.h"
-
+/*
 static int	size_map(int fd)
 {
 	char	*line;
-	int	nbr_line;
+	int		nbr_line;
 
 	line = get_next_line(fd);
 	if (!line)
@@ -17,22 +17,25 @@ static int	size_map(int fd)
 	}
 	free(line);
 	return (nbr_line);
-}
+}*/
 
 static char	*add_to_map(int fd, t_map *map)
 {
-	int	i;
+	int		i;
+	char	*line;
 
-	i = -1;
-	map->map[map->nbr_line] = '\0';
-	while (++i < map->nbr_line)
+	i = 0;
+	line = ft_strtrim(get_next_line(fd), "\n");
+	while (line)
 	{
-		map->map[i] = get_next_line(fd);
-		if (!map->map[i])
+		map->map = map_realloc(map->map, sizeof(char *),(size_t *)&map->nbr_line);
+		map->map[i] = line;
+		if (!map->map[i++])
 		{
 			map->nbr_line = i;
 			return(NULL);
 		}
+		line = ft_strtrim(get_next_line(fd), "\n");
 	}
 	return (map->map[0]);
 }
@@ -75,7 +78,7 @@ t_map	*parse_map(char *map_file)
 	int 	fd;
 
 	map = init_map();
-	fd = open(map_file, O_RDONLY);
+/*	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
 		return ((t_map *)free_map(map));
 	map->nbr_line = size_map(fd);
@@ -84,7 +87,7 @@ t_map	*parse_map(char *map_file)
 	map->map = malloc(sizeof(char *) * (map->nbr_line + 1));
 	if (!map->map)
 		return ((t_map *)free_map(map));
-	close(fd);
+	close(fd);*/
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
 		return ((t_map *)free_map(map));
