@@ -49,7 +49,10 @@ static char	*add_to_map(int fd, t_map *map)
 	{
 		map->map = map_realloc(tmp_map, sizeof(char *), &map->nbr_line);
 		if (i == 3)
+		{
+			free(map->map);
 			map->map = NULL;
+		}
 		if (!map->map)
 		{
 			map->nbr_line -= 1;
