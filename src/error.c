@@ -6,12 +6,13 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:41:17 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/10 11:51:19 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/11 16:26:28 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+#include <stdio.h>
 static void	char_test(t_map *map, char c)
 {
 	if (c == EMPTY || c == WALL)
@@ -37,27 +38,24 @@ static int	check_map_for_error(t_map *map)
 	{
 		if ((int)ft_strlen(map->map[i]) != map->len_line)
 			return (-1);
-		j = 0;
+		j = -1;
 		if (i == 0 || i == map->nbr_line - 1)
 		{
-			while (map->map[i][j])
-			{
+			while (map->map[i][++j])
 				if (map->map[i][j] != WALL)
 					return (-2);
-				j++;
-			}
 		}
 		else
 		{
-			if (map->map[i][0] != WALL || map->map[i][map->len_line - 1] != WALL)
+			if (map->map[i][0] != WALL ||
+					map->map[i][map->len_line - 1] != WALL)
 				return (-2);
-			while (map->map[i][j])
-				char_test(map, map->map[i][j++]);
+			while (map->map[i][++j])
+				char_test(map, map->map[i][j]);
 		}
 	}
 	return (0);
 }
-
 /*
 int	has_path()
 {
@@ -73,7 +71,7 @@ int	file_error(char *map_file)
 		ft_putstr_fd("Error\nNo map file\n", 1);
 		return (-2);
 	}
-	len  = ft_strlen(map_file);
+	len = ft_strlen(map_file);
 	if (ft_strncmp(&map_file[len - 4], ".ber", 4) != 0)
 	{
 		ft_putstr_fd("Error\nNot a .ber map file\n", 1);
@@ -81,6 +79,7 @@ int	file_error(char *map_file)
 	}
 	return (0);
 }
+
 int	map_error(t_map *map)
 {
 	char	*error_msg;
@@ -107,5 +106,5 @@ int	map_error(t_map *map)
 		return (0);
 	ft_putstr_fd("Error\n", 1);
 	ft_putstr_fd(error_msg, 1);
-	return(-1);
+	return (-1);
 }

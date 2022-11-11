@@ -61,7 +61,7 @@ $(NAME): $(OBJ)
 		$(AR) $(NAME) $(OBJ)
 
 .c.o:
-		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+		$(CC) $(CFLAGS) -g -c $< -o $(<:.c=.o)
 
 all: $(NAME)
 

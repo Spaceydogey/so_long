@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:57:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/10 17:39:47 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/11 15:49:55 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef struct s_map
 
 t_map	*parse_map(char *map_file);
 int		file_error(char *map_file);
-char	**map_realloc(char **p, size_t size_of, size_t *nbr_line);
+char	**map_realloc(char **p, size_t size_of, int *nbr_line);
+void	free_table(void **p, int size);
 char	*free_map(t_map *map);
 int		map_error(t_map *map);
 #endif

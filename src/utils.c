@@ -6,25 +6,25 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 12:02:07 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/10 17:39:45 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/11 16:56:13 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	**map_realloc(char **p, size_t size_of, size_t *nbr_line)
+char	**map_realloc(char **p, size_t size_of, int *nbr_line)
 {
 	char	**res;
+	int		i;
 
-	if (!p)
-		return (NULL);
 	*nbr_line += 1;
 	res = malloc(size_of * (*nbr_line + 1));
 	if (!res)
 		return (NULL);
-	ft_memmove((void *)res, (void *)p, (unsigned long)nbr_line);
-	free(p);
-	res[(int)nbr_line] = "\0";
+	i = -1;
+	while (++i < *nbr_line - 1)
+		res[i] = p[i];
+	res[*nbr_line - 1] = "\0";
+	res[*nbr_line] = "\0";
 	return (res);
 }
-
