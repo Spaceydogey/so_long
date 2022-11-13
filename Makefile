@@ -36,7 +36,7 @@ $(NAME): $(OBJ)
 		@make -C $(LIBFT_DIR)
 		@make -C $(GNL_DIR)
 		#@make -C $(MLX_DIR)
-		$(CC) $(CFLAGS) -g $(LIBFT) $(GNL) $(OBJ) -o $(NAME)
+		$(CC) $(FFLAGS) $(CFLAGS) -g $(OBJ) $(LIBFT) $(GNL) -o $(NAME)
 
 .c.o:
 		$(CC) $(CFLAGS) -g -c $< -o $(<:.c=.o)

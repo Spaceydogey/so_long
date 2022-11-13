@@ -12,77 +12,45 @@
 
 #include "so_long.h"
 
-/*
-static int	size_map(int fd)
+static char	*gnl_trim(int fd)
 {
-	char	*line;
-	int		nbr_line;
-
-	line = get_next_line(fd);
-	if (!line)
-		return(-1);
-	nbr_line = 0;
-	while (line)
-	{
-		free(line);
-		nbr_line += 1;
-		line = get_next_line(fd);
-	}
-	free(line);
-	return (nbr_line);
-}*/
-static char	*add_to_map(int fd, t_map *map)
-{
-	int		i;
 	char	*line;
 	char	*tmp_line;
-	char	**tmp_map;
 
-	i = 0;
 	tmp_line = get_next_line(fd);
 	if (!tmp_line)
 		return (NULL);
 	line = ft_strtrim(tmp_line, "\n");
 	free(tmp_line);
+	if (!line)
+		return (NULL);
+	return (line);
+}
+static char	*add_to_map(int fd, t_map *map)
+{
+	int		i;
+	char	*line;
+	char	**tmp_map;
+
+	i = 0;
+	line = gnl_trim(fd);
+	if (!line)
+		return (NULL);
 	tmp_map = NULL;
 	while (line)
 	{
 		map->map = map_realloc(tmp_map, sizeof(char *), &map->nbr_line);
-		if (i == 3)
-		{
-			free(map->map);
-			map->map = NULL;
-		}
 		if (!map->map)
 		{
-			map->nbr_line -= 1;
-			map->map = tmp_map;
-			return (NULL);//leaks if malloc fails add free tab might need temp var to be able to free all the lines 
+			free(line);
+			return (free_tab(tmp_map, map->nbr_line - 1));
 		}
 		free(tmp_map);
-		map->map[i] = line;
-		if (!map->map[i])
-			return (NULL);
-		i++;
-		tmp_line = get_next_line(fd);
-		line = ft_strtrim(tmp_line, "\n");
-		free(tmp_line);
+		map->map[i++] = line;
+		line = gnl_trim(fd);
 		tmp_map = map->map;
 	}
 	return ("good");
-}
-
-char	*free_map(t_map *map)
-{
-	int	i;
-
-	i = -1;
-	if (map->map)
-		while (++i < map->nbr_line)
-			free(map->map[i]);
-	free(map->map);
-	free(map);
-	return (NULL);
 }
 
 static t_map	*init_map(void)

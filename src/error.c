@@ -12,7 +12,6 @@
 
 #include "so_long.h"
 
-#include <stdio.h>
 static void	char_test(t_map *map, char c)
 {
 	if (c == EMPTY || c == WALL)
@@ -68,13 +67,13 @@ int	file_error(char *map_file)
 
 	if (!map_file)
 	{
-		ft_putstr_fd("Error\nNo map file\n", 1);
+		ft_putstr_fd("Error\nNo map file\n", 2);
 		return (-2);
 	}
 	len = ft_strlen(map_file);
 	if (ft_strncmp(&map_file[len - 4], ".ber", 4) != 0)
 	{
-		ft_putstr_fd("Error\nNot a .ber map file\n", 1);
+		ft_putstr_fd("Error\nNot a .ber map file\n", 2);
 		return (-1);
 	}
 	return (0);
@@ -87,7 +86,7 @@ int	map_error(t_map *map)
 
 	if (!map)
 	{
-		ft_putstr_fd("Error\nEmpty map file or parsing error\n", 1);
+		ft_putstr_fd("Error\nEmpty map file or parsing error\n", 2);
 		return (-1);
 	}
 	error_msg = NULL;
@@ -104,7 +103,7 @@ int	map_error(t_map *map)
 		error_msg = "The number of collectibles should at least be of 1\n";
 	if (!error_msg)
 		return (0);
-	ft_putstr_fd("Error\n", 1);
-	ft_putstr_fd(error_msg, 1);
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(error_msg, 2);
 	return (-1);
 }

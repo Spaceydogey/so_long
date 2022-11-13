@@ -34,6 +34,7 @@ typedef struct s_map
 	char	**map;
 } t_map;
 
+char	*free_tab(char **tab, int nbr_line);
 t_map	*parse_map(char *map_file);
 int		file_error(char *map_file);
 char	**map_realloc(char **p, size_t size_of, int *nbr_line);
