@@ -5,13 +5,13 @@ SRCS = 	get_next_line.c\
 
 OBJ = $(SRCS:.c=.o)
 
-AR = ar -rcs
+AR = @ar -rcs
 
 CFLAGS = -Wall -Wextra -Werror
 
-CC = cc
+CC = @cc
 
-RM = rm -f
+RM = @rm -f
 
 $(NAME): $(OBJ)
 		$(AR) $(NAME) $(OBJ)

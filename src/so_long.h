@@ -12,8 +12,13 @@
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+# ifdef __linux__
+#  include "../mlx_linux/mlx.h"
+# endif
+# ifdef __apple__
+#  include "../mlx/mlx.h"
+# endif
 # include "../libft/libft.h"
-# include "../mlx/mlx.h"
 # include "../get_next_line/gnl.h"
 # include <fcntl.h>
 # include <unistd.h>
