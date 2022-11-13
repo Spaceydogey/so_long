@@ -50,6 +50,7 @@ static void	map_to_window(void *mlx, void *mlx_win, t_map *map)
 	void	*img;
 	char	*wall = "textures/rock.xpm";
 	char	*grass = "textures/grass.xpm";
+	char	*cat = "textures/cat.xpm";
 	int		img_width;
 	int		img_height;
 	int		pos_x;
@@ -65,8 +66,10 @@ static void	map_to_window(void *mlx, void *mlx_win, t_map *map)
 			{
 					img = mlx_xpm_file_to_image(mlx, grass, &img_width, &img_height);
 					mlx_put_image_to_window(mlx, mlx_win, img, pos_x, pos_y);
-					if (map->map[i][j] == '1')
+					if (map->map[i][j] == WALL)
 							img = mlx_xpm_file_to_image(mlx, wall, &img_width, &img_height);
+					if (map->map[i][j] == PLAYER)
+							img = mlx_xpm_file_to_image(mlx, cat, &img_width, &img_height);
 					mlx_put_image_to_window(mlx, mlx_win, img, pos_x, pos_y);
 					pos_x += 32;
 			}
