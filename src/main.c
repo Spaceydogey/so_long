@@ -18,7 +18,7 @@ static void	window(t_map *map);
 int main(int ac, char **av)
 {
 	char	*map_file = av[1];
-	//int 	i = 0;
+	int 	i = 0;
 	t_map 	*map;
 
 	if (ac > 2)
@@ -34,12 +34,11 @@ int main(int ac, char **av)
 		free_map(map);
 		return (-1);
 	}
-	/*
 	while (i < map->nbr_line)
 	{
 		printf("%s\n",map->map[i]);//temp test
 		i++;
-	}*/
+	}
 	window(map);
 	free_map(map);
 }
@@ -58,12 +57,11 @@ static void	map_to_window(void *mlx, void *mlx_win, t_map *map)
 
 	i = -1;
 	pos_y = 0;
-	while (map->map[++i])
+	while (++i < map->nbr_line)
 	{
 			j = -1;
 			pos_x = 0;
-			printf("%d >%s\n", i,map->map[i]);//temp test
-			while (map->map[i][++j])
+			while (++j < map->len_line)
 			{
 					img = mlx_xpm_file_to_image(mlx, grass, &img_width, &img_height);
 					mlx_put_image_to_window(mlx, mlx_win, img, pos_x, pos_y);
