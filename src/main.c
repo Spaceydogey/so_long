@@ -13,7 +13,7 @@
 #include "so_long.h"
 #include <stdio.h>
 
-void	mlx(void);
+static void	window(t_map *map);
 
 int main(int ac, char **av)
 {
@@ -39,23 +39,49 @@ int main(int ac, char **av)
 		printf("%s\n",map->map[i]);//temp test
 		i++;
 	}
-	mlx();
+	window(map);
 	free_map(map);
 }
 
-void	mlx(void)
+static void	map_to_window(void *mlx, void *mlx_win, t_map *map)
+{
+	int		i;
+	int		j;
+	void	*img;
+	char	*wall = "textures/rock.xpm";
+	char	*grass = "textures/grass.xpm";
+	int		img_width;
+	int		img_height;
+	int		pos_x;
+	int		pos_y;
+
+	i = -1;
+	pos_x = 0;
+	pos_y = 0;
+	while (map->map[++i])
+	{
+			j = -1;
+			while (map->map[i][++j])
+			{
+					if (map->map[i][j] == '1')
+							img = mlx_xpm_file_to_image(mlx, wall, &img_width, &img_height);
+					else
+							img = mlx_xpm_file_to_image(mlx, grass, &img_width, &img_height);
+					mlx_put_image_to_window(mlx, mlx_win, img, pos_x, pos_y);
+					pos_x += 32;
+			}
+			pos_y += 32;
+	}
+}
+
+static void	window(t_map *map)
 {
 	void	*mlx;
 	void	*mlx_win;
-	void	*img;
-	char	*path = "textures/test.xpm";
-	int		img_width;
-	int		img_height;
-
-	(void)mlx_win;
+	
 	mlx = mlx_init();
-	img = mlx_xpm_file_to_image(mlx, path, &img_width, &img_height);
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "boop");
-	mlx_put_image_to_window(mlx, mlx_win, img, 0, 0);
+	mlx_win = mlx_new_window(mlx, map->len_line * 32, map->nbr_line * 32, "boop");
+	map_to_window(mlx, mlx_win, map);
 	mlx_loop(mlx);
 }
+
