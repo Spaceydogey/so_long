@@ -42,10 +42,33 @@ int main(int ac, char **av)
 	window(map);
 	free_map(map);
 }
+
+static int	key_hook(int keycode, t_map *map)
+{
+		char	tmp;
+		char	**tab;
+		int		i = 0;
+
+		tab = map->map;
+		if (keycode = 'w')
+			{
+				tmp = tab[16][1];
+				tab[16][1] = tab[15][1];
+				tab[15][1] = tmp;
+				while (i < map->nbr_line)
+				{
+					printf("%s\n",map->map[i]);//temp test
+					i++;
+				}
+			}
+		return (0);
+}
+
 static void	frame_buffer()
 {
 
 }
+
 static void	map_to_window(void *mlx, void *mlx_win, t_map *map)
 {
 	int		i;
@@ -125,7 +148,6 @@ static void	map_to_window(void *mlx, void *mlx_win, t_map *map)
 					{
 						pixel = frame_addr + ((pos_y) * line_len + (pos_x) * (bpp / 8));
 						color = *(unsigned int *)(imgcat_addr + (i * imgcat_line_len + j * (imgcat_bpp / 8)));
-						printf("color >%u\n", color); 
 						if (color != 4278190080)
 								*(unsigned int *)pixel = color;
 					}
@@ -146,6 +168,6 @@ static void	window(t_map *map)
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, map->len_line * 32, map->nbr_line * 32, "boop");
 	map_to_window(mlx, mlx_win, map);
+	mlx_key_hook(mlx_win, key_hook, map);
 	mlx_loop(mlx);
 }
-
