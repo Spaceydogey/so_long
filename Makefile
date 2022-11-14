@@ -68,11 +68,11 @@ $(NAME): $(OBJ)
 		@make --no-print-directory -C $(MLX_DIR)
 		$(PRINT) $(GREEN)done:'\t'$(NOCOLOR)$(MLX_DIR)
 		$(PRINT) $(CYAN)making:'\t'$(NOCOLOR)$(NAME)
-		$(CC) $(FFLAGS) $(CFLAGS) -g $(OBJ) $(LIBFT) $(GNL) $(MLX) -o $(NAME)
+		$(CC) $(FFLAGS) -g $(OBJ) $(LIBFT) $(GNL) $(MLX) -o $(NAME)
 		$(PRINT) $(GREEN)done:'\t'$(NOCOLOR)$(NAME)
 
 .c.o:
-		$(CC) $(CFLAGS) -g -c $< -o $(<:.c=.o)
+		$(CC) -g -c $< -o $(<:.c=.o)
 
 ###__RULES__###
 all: $(NAME)
