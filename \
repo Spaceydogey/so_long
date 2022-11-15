@@ -58,18 +58,18 @@ endif
 ###__COMPILATION__###
 $(NAME): $(OBJ)
 		$(PRINT_OS)
-		$(PRINT) "$(RED)making:	$(NOCOLOR)$(LIBFT_DIR)"
+		echo "$(RED) making:'\t'$(NOCOLOR)$(LIBFT_DIR)"
 		@make --no-print-directory -C $(LIBFT_DIR)
-		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(LIBFT_DIR)"
-		$(PRINT) "$(RED)making:\t$(NOCOLOR)$(GNL_DIR)"
+		$(PRINT) "$(GREEN)done:'\t'$(NOCOLOR)$(LIBFT_DIR)"
+		$(PRINT) $(RED)making:'\t'$(NOCOLOR)$(GNL_DIR)
 		@make --no-print-directory -C $(GNL_DIR)
-		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(GNL_DIR)"
-		$(PRINT) "$(RED)making:\t$(NOCOLOR)$(MLX_DIR)"
+		$(PRINT) $(GREEN)done:'\t'$(NOCOLOR)$(GNL_DIR)
+		$(PRINT) $(RED)making:'\t'$(NOCOLOR)$(MLX_DIR)
 		@make --no-print-directory -C $(MLX_DIR)
-		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(MLX_DIR)"
-		$(PRINT) "$(CYAN)making:\t$(NOCOLOR)$(NAME)"
+		$(PRINT) $(GREEN)done:'\t'$(NOCOLOR)$(MLX_DIR)
+		$(PRINT) $(CYAN)making:'\t'$(NOCOLOR)$(NAME)
 		$(CC) $(CFLAGS) $(FFLAGS) -g $(OBJ) $(LIBFT) $(GNL) $(MLX) -o $(NAME)
-		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(NAME)"
+		$(PRINT) $(GREEN)done:'\t'$(NOCOLOR)$(NAME)
 
 .c.o:
 		$(CC) $(CFLAGS) -g -c $< -o $(<:.c=.o)
@@ -101,13 +101,13 @@ re :	fclean $(NAME)
 PRINT = echo
 
 # endif
-PRINT_OS = echo "$(CYAN)OS:\t$(NOCOLOR)$(DETECTED_OS)"
+PRINT_OS = echo $(CYAN)OS:'\t'$(NOCOLOR)$(DETECTED_OS)
 
 ###__COLORS__###
-NOCOLOR = \033[0m
-RED = \033[0;31m
-GREEN = \033[0;32m
-YELLOW = \033[0;32m
-BLUE = \033[0;34m
+NOCOLOR = '\033[0m'
+RED = '\033[1;31m'
+GREEN = '\033[1;32m'
+YELLOW = '\033[1;32m'
+BLUE = '\033[1;34m'
 
-CYAN = \033[0;36m
+CYAN = '\033[1;36m'

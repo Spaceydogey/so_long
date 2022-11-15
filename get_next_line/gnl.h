@@ -6,11 +6,13 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 17:02:20 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/08 17:11:09 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/15 11:01:19 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GNL_H
 # define GNL_H
+
 char	*get_next_line(int fd);
+
 #endif

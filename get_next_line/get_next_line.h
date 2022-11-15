@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 10:28:41 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/11 15:41:52 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/15 11:00:58 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 #  define BUFFER_SIZE 10000
 # endif
 
-int		GN_strlen(const char *s);
-size_t	GN_strlcpy(char *dst, char *src, size_t dstsize);
+int		gn_strlen(const char *s);
+size_t	gn_strlcpy(char *dst, char *src, size_t dstsize);
 char	*join_strdup(char *s, int *check);
-void	GN_bzero(void *s, size_t n);
+void	gn_bzero(void *s, size_t n);
 int		ft_len_to_add(char *str);
 char	*add_to_line(char *res, char *remains, int *check, int fd);
 char	*join_strjoin(char *s1, char *s2, int *check);

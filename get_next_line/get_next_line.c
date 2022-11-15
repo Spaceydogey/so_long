@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 10:24:06 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/11 15:41:41 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/15 11:05:58 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ char	*add_to_line(char *res, char *remains, int *check, int fd)
 
 	while (*check == -1)
 	{
-		GN_bzero(buf, BUFFER_SIZE + 1);
+		gn_bzero(buf, BUFFER_SIZE + 1);
 		read_check = read(fd, buf, BUFFER_SIZE);
 		if (read_check == -1)
 		{
 			free(res);
-			GN_bzero(remains, BUFFER_SIZE + 1);
+			gn_bzero(remains, BUFFER_SIZE + 1);
 			return (NULL);
 		}
 		len_to_add = ft_len_to_add(buf);
-		GN_strlcpy(remains, &buf[(len_to_add)], BUFFER_SIZE + 1);
-		GN_strlcpy(buf, buf, len_to_add + 1);
+		gn_strlcpy(remains, &buf[(len_to_add)], BUFFER_SIZE + 1);
+		gn_strlcpy(buf, buf, len_to_add + 1);
 		res = join_strjoin(res, buf, check);
 		if (read_check == 0)
 		{
-			GN_bzero(remains, BUFFER_SIZE + 1);
+			gn_bzero(remains, BUFFER_SIZE + 1);
 			break ;
 		}
 	}
@@ -70,7 +70,7 @@ char	*get_next_line(int fd)
 	res = join_strdup(remains, &check);
 	if (!res)
 		return (NULL);
-	GN_strlcpy(remains, &remains[check + 1], BUFFER_SIZE + 1);
+	gn_strlcpy(remains, &remains[check + 1], BUFFER_SIZE + 1);
 	res = add_to_line(res, remains, &check, fd);
 	if (!res || res[0] == '\0')
 	{

@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 10:45:57 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/15 09:08:33 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/15 12:53:35 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	key_hook(int keycode, t_map *map)
 		int		i = 0;
 
 		tab = map->map;
-		if (keycode = 'w')
+		if (keycode == 'w')
 			{
 				tmp = tab[16][1];
 				tab[16][1] = tab[15][1];
@@ -63,12 +63,12 @@ static int	key_hook(int keycode, t_map *map)
 			}
 		return (0);
 }
-
+/*
 static void	frame_buffer()
 {
 
 }
-
+*/
 static void	map_to_window(void *mlx, void *mlx_win, t_map *map)
 {
 	int		i;
@@ -106,9 +106,7 @@ static void	map_to_window(void *mlx, void *mlx_win, t_map *map)
 	int		img_width;
 	int		img_height;
 	int		pos_x;
-	int 	x;
 	int		pos_y;
-	int		y;
 	char 	*pixel;
 
 	unsigned int	color;
