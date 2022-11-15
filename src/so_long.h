@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:57:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/11 15:49:55 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/15 08:53:45 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define SO_LONG_H
 # ifdef __linux__
 #  include "../mlx_linux/mlx.h"
-# endif
-# ifdef __apple__
+# else
 #  include "../mlx/mlx.h"
 # endif
 # include "../libft/libft.h"
