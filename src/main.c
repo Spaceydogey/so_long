@@ -73,55 +73,31 @@ static void	map_to_window(void *mlx, void *mlx_win, t_map *map)
 {
 	int		i;
 	int		j;
-	void	*img;
-	char	*img_addr;
-	int		img_bpp;
-	int		img_line_len;
-	int		img_endian;
-	int		bpp;
-
-	void	*imgwall;
-	char	*imgwall_addr;
-	int		imgwall_bpp;
-	int		imgwall_line_len;
-	int		imgwall_endian;
-	int		imgwall_width;
-	int		imgwall_height;
-
-	void	*imgcat;
-	char	*imgcat_addr;
-	int		imgcat_bpp;
-	int		imgcat_line_len;
-	int		imgcat_endian;
-	int		imgcat_width;
-	int		imgcat_height;
-
-	int 	line_len;
-	int		endian;
-	void	*frame;
-	char	*frame_addr;
-	char	*wall = "textures/rock.xpm";
-	char	*grass = "textures/grass.xpm";
-	char	*cat = "textures/cat.xpm";
-	int		img_width;
-	int		img_height;
+	t_img	*ground;
+	t_img	*wall;
+	t_img	*cat;
+	t_img	*player;
+	t_img	*frame;
+	char	*wall_path = "textures/rock.xpm";
+	char	*grass_path = "textures/grass.xpm";
+	char	*cat_path = "textures/cat.xpm";
 	int		pos_x;
 	int		pos_y;
 	char 	*pixel;
 
 	unsigned int	color;
 
-	frame = mlx_new_image(mlx, map->len_line * 32, map->nbr_line * 32);
-	frame_addr = mlx_get_data_addr(frame, &bpp, &line_len, &endian);
+	frame->img = mlx_new_image(mlx, map->len_line * 32, map->nbr_line * 32);
+	frame->addr = mlx_get_data_addr(frame->img, &frame->bpp, &frame->line_len, &frame->endian);
 
-	img = mlx_xpm_file_to_image(mlx, grass, &img_width, &img_height);
-	img_addr = mlx_get_data_addr(img, &img_bpp, &img_line_len, &img_endian);
+	ground->img = mlx_xpm_file_to_image(mlx, grass_path, &ground->width, &ground->height);
+	ground->addr = mlx_get_data_addr(ground->img, &ground->bpp, &ground->line_len, &ground->endian);
 
-	imgcat = mlx_xpm_file_to_image(mlx, cat, &imgcat_width, &imgcat_height);
-	imgcat_addr = mlx_get_data_addr(imgcat, &imgcat_bpp, &imgcat_line_len, &imgcat_endian);
+	cat->img = mlx_xpm_file_to_image(mlx, cat_path, &cat->width, &cat->height);
+	cat->addr = mlx_get_data_addr(cat->img, &cat->bpp, &cat->line_len, &cat->endian);
 
-	imgwall = mlx_xpm_file_to_image(mlx, wall, &imgwall_width, &imgwall_height);
-	imgwall_addr = mlx_get_data_addr(imgwall, &imgwall_bpp, &imgwall_line_len, &imgwall_endian);
+	wall->img = mlx_xpm_file_to_image(mlx, wall_path, &wall->width, &wall->height);
+	wall->addr = mlx_get_data_addr(wall->img, &wall->bpp, &wall->line_len, &wall->endian);
 	
 	pos_y = 0;
 	while (pos_y < map->nbr_line * 32)
@@ -135,17 +111,17 @@ static void	map_to_window(void *mlx, void *mlx_win, t_map *map)
 				j = -1;
 				while (++j < 32)
 				{
-					pixel = frame_addr + ((pos_y) * line_len + (pos_x) * (bpp / 8));
-					*(unsigned int *)pixel = *(unsigned int *)(img_addr + (i * img_line_len + j * (img_bpp / 8)));	
+					pixel = frame->addr + ((pos_y) * frame->line_len + (pos_x) * (frame->bpp / 8));
+					*(unsigned int *)pixel = *(unsigned int *)(ground->addr + (i * ground->line_len + j * (ground->bpp / 8)));	
 					if (map->map[pos_y/32][pos_x/32] == WALL)
 					{
-						pixel = frame_addr + ((pos_y) * line_len + (pos_x) * (bpp / 8));
-						*(unsigned int *)pixel = *(unsigned int *)(imgwall_addr + (i * imgwall_line_len + j * (imgwall_bpp / 8)));
+						pixel = frame->addr + ((pos_y) * frame->line_len + (pos_x) * (frame->bpp / 8));
+						*(unsigned int *)pixel = *(unsigned int *)(wall->addr + (i * wall->line_len + j * (wall->bpp / 8)));
 					}
 					else if (map->map[pos_y/32][pos_x/32] == PLAYER)
 					{
-						pixel = frame_addr + ((pos_y) * line_len + (pos_x) * (bpp / 8));
-						color = *(unsigned int *)(imgcat_addr + (i * imgcat_line_len + j * (imgcat_bpp / 8)));
+						pixel = frame->addr + ((pos_y) * frame->line_len + (pos_x) * (frame->bpp / 8));
+						color = *(unsigned int *)(cat->addr + (i * cat->line_len + j * (cat->bpp / 8)));
 						if (color != 4278190080)
 								*(unsigned int *)pixel = color;
 					}

@@ -38,6 +38,31 @@ typedef struct s_map
 	char	**map;
 } t_map;
 
+typedef struct s_obj
+{
+		int				x;
+		int				y;
+		struct s_obj	*next;
+} t_obj;
+
+typedef struct s_img
+{
+		void	*img;
+		int		width;
+		int		height;
+		char	*addr;
+		int		bpp;
+		int		line_len;
+		int		endian;
+} t_img;
+
+typedef struct s_player
+{
+		int 	x;
+		int		y;
+		t_img	sprite;
+} t_player;
+
 char	*free_tab(char **tab, int nbr_line);
 t_map	*parse_map(char *map_file);
 int		file_error(char *map_file);

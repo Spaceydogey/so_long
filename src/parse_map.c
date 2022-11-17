@@ -26,6 +26,7 @@ static char	*gnl_trim(int fd)
 		return (NULL);
 	return (line);
 }
+
 static char	*add_to_map(int fd, t_map *map)
 {
 	int		i;
