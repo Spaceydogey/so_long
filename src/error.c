@@ -6,20 +6,24 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:41:17 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/11 16:26:28 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/18 09:23:29 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	char_test(t_map *map, char c)
+static void	char_test(t_map *map, char c, int line, int col)
 {
 	if (c == EMPTY || c == WALL)
 		return ;
 	else if (c == OBJ)
 		map->nbr_obj += 1;
 	else if (c == PLAYER)
+	{
+		map->start_x = col;
+		map->start_y = line;
 		map->nbr_start += 1;
+	}
 	else if (c == EXIT)
 		map->nbr_exit += 1;
 	else
@@ -50,7 +54,7 @@ static int	check_map_for_error(t_map *map)
 					map->map[i][map->len_line - 1] != WALL)
 				return (-2);
 			while (map->map[i][++j])
-				char_test(map, map->map[i][j]);
+				char_test(map, map->map[i][j], i, j);
 		}
 	}
 	return (0);

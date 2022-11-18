@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:57:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/15 08:53:45 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/18 09:21:11 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 # define EXIT 'E'
 # define PLAYER 'P'
 
+typedef struct s_obj
+{
+		int				x;
+		int				y;
+		struct s_obj	*next;
+} t_obj;
+
 typedef struct s_map
 {
 	int		nbr_line;
@@ -36,14 +43,9 @@ typedef struct s_map
 	int		nbr_obj;
 	int		error;
 	char	**map;
+	int		start_x;
+	int		start_y;
 } t_map;
-
-typedef struct s_obj
-{
-		int				x;
-		int				y;
-		struct s_obj	*next;
-} t_obj;
 
 typedef struct s_img
 {
@@ -60,9 +62,13 @@ typedef struct s_player
 {
 		int 	x;
 		int		y;
-		t_img	sprite;
 } t_player;
 
+int moveright(t_player *player, t_map *map);
+int moveleft(t_player *player, t_map *map);
+int moveup(t_player *player, t_map *map);
+int movedown(t_player *player, t_map *map);
+t_player	*player_init(t_map *map);
 char	*free_tab(char **tab, int nbr_line);
 t_map	*parse_map(char *map_file);
 int		file_error(char *map_file);

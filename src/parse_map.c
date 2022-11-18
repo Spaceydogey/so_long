@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:29:55 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/11 17:01:58 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/18 09:21:34 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static t_map	*init_map(void)
 	map->nbr_obj = 0;
 	map->error = 0;
 	map->map = NULL;
+	map->start_x = 0;
+	map->start_y = 0;
 	return (map);
 }
 
