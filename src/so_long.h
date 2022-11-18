@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:57:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/18 09:21:11 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/18 18:23:04 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_player
 		int		y;
 } t_player;
 
+int		path_finding(int x, int y, t_map *map);
 int moveright(t_player *player, t_map *map);
 int moveleft(t_player *player, t_map *map);
 int moveup(t_player *player, t_map *map);
