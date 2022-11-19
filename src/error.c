@@ -78,31 +78,35 @@ int	file_error(char *map_file)
 	return (0);
 }
 
+int	has_path(t_map *map)
+{
+	if (path_finding(map->start_x, map->start_y, map) == 0)
+	{
+		ft_putstr_fd("Error\nMap has no path\n", 2);
+		return (-1);
+	}
+	return (0);
+}
+
 int	map_error(t_map *map)
 {
 	char		*error_msg;
 	int			check;
 
-	if (!map)
-	{
-		ft_putstr_fd("Error\nEmpty map file or parsing error\n", 2);
-		return (-1);
-	}
 	error_msg = NULL;
 	check = check_map_for_error(map);
 	if (check == -1)
-		error_msg = "Map is not rectangular\n";
+		error_msg = "Error\nMap is not rectangular\n";
 	else if (check == -2)
-		error_msg = "Map is not closed\n";
+		error_msg = "Error\nMap is not closed\n";
 	else if (map->nbr_start > 1 || map->nbr_start <= 0)
-		error_msg = "The number of start tiles should be 1\n";
+		error_msg = "Error\nThe number of start tiles should be 1\n";
 	else if (map->nbr_exit > 1 || map->nbr_exit <= 0)
-		error_msg = "The number of exit tiles should be 1\n";
+		error_msg = "Error\nThe number of exit tiles should be 1\n";
 	else if (map->nbr_obj <= 0)
-		error_msg = "The number of collectibles should at least be of 1\n";
+		error_msg = "Error\nThe number of collectibles should at least be of 1\n";
 	if (!error_msg)
 		return (0);
-	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(error_msg, 2);
 	return (-1);
 }

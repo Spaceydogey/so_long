@@ -29,10 +29,10 @@
 
 typedef struct s_obj
 {
-		int				x;
-		int				y;
-		struct s_obj	*next;
-} t_obj;
+	int				x;
+	int				y;
+	struct s_obj	*next;
+}	t_obj;
 
 typedef struct s_map
 {
@@ -45,36 +45,38 @@ typedef struct s_map
 	char	**map;
 	int		start_x;
 	int		start_y;
-} t_map;
+}	t_map;
 
 typedef struct s_img
 {
-		void	*img;
-		int		width;
-		int		height;
-		char	*addr;
-		int		bpp;
-		int		line_len;
-		int		endian;
-} t_img;
+	void	*img;
+	int		width;
+	int		height;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
 
 typedef struct s_player
 {
-		int 	x;
-		int		y;
-} t_player;
+	int		x;
+	int		y;
+}	t_player;
 
-int		path_finding(int x, int y, t_map *map);
-int moveright(t_player *player, t_map *map);
-int moveleft(t_player *player, t_map *map);
-int moveup(t_player *player, t_map *map);
-int movedown(t_player *player, t_map *map);
+int			has_path(t_map *map);
+int			path_finding(int x, int y, t_map *map);
+t_map		*map_dup(t_map *map);
+int			moveright(t_player *player, t_map *map);
+int			moveleft(t_player *player, t_map *map);
+int			moveup(t_player *player, t_map *map);
+int			movedown(t_player *player, t_map *map);
 t_player	*player_init(t_map *map);
-char	*free_tab(char **tab, int nbr_line);
-t_map	*parse_map(char *map_file);
-int		file_error(char *map_file);
-char	**map_realloc(char **p, size_t size_of, int *nbr_line);
-void	free_table(void **p, int size);
-char	*free_map(t_map *map);
-int		map_error(t_map *map);
+char		*free_tab(char **tab, int nbr_line);
+t_map		*parse_map(char *map_file);
+int			file_error(char *map_file);
+char		**map_realloc(char **p, size_t size_of, int *nbr_line);
+void		free_table(void **p, int size);
+char		*free_map(t_map *map);
+int			map_error(t_map *map);
 #endif

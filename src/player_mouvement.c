@@ -14,7 +14,7 @@
 
 t_player	*player_init(t_map *map)
 {
-	t_player *player;
+	t_player	*player;
 
 	player = malloc(sizeof(t_player));
 	if (!player)
@@ -24,7 +24,7 @@ t_player	*player_init(t_map *map)
 	return (player);
 }
 
-int moveup(t_player *player, t_map *map)
+int	moveup(t_player *player, t_map *map)
 {
 	if (map->map[player->y - 1][player->x] != WALL)
 	{
@@ -36,9 +36,8 @@ int moveup(t_player *player, t_map *map)
 	return (-1);
 }
 
-int movedown(t_player *player, t_map *map)
+int	movedown(t_player *player, t_map *map)
 {
-
 	if (map->map[player->y + 1][player->x] != WALL)
 	{
 		map->map[player->y][player->x] = '9';
@@ -49,7 +48,7 @@ int movedown(t_player *player, t_map *map)
 	return (-1);
 }
 
-int moveleft(t_player *player, t_map *map)
+int	moveleft(t_player *player, t_map *map)
 {
 	if (map->map[player->y][player->x - 1] != WALL)
 	{
@@ -61,7 +60,7 @@ int moveleft(t_player *player, t_map *map)
 	return (-1);
 }
 
-int moveright(t_player *player, t_map *map)
+int	moveright(t_player *player, t_map *map)
 {
 	if (map->map[player->y][player->x + 1] != WALL)
 	{

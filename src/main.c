@@ -18,9 +18,10 @@ static void	window(t_map *map);
 int main(int ac, char **av)
 {
 	char	*map_file = av[1];
-	int 	i = 0;
+//	int 	i = 0;
 	t_map 	*map;
 	t_map	*map_copy;
+//	t_player	*player;
 
 	if (ac > 2)
 	{
@@ -41,12 +42,20 @@ int main(int ac, char **av)
 		free_map(map);
 		return (-1);
 	}
-	while (i < map->nbr_line)
+	if (has_path(map_copy) != 0)
+	{
+			free_map(map_copy);
+			free_map(map);
+			return (-1);
+	}
+/*	while (i < map->nbr_line)
 	{
 		printf("%s\n",map->map[i]);//temp test
 		i++;
-	}
+	}*/
 	window(map);
+	//free(player);
+	free_map(map_copy);
 	free_map(map);
 }
 
