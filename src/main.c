@@ -20,6 +20,7 @@ int main(int ac, char **av)
 	char	*map_file = av[1];
 	int 	i = 0;
 	t_map 	*map;
+	t_map	*map_copy;
 
 	if (ac > 2)
 	{
@@ -30,6 +31,12 @@ int main(int ac, char **av)
 		return (-1);
 	map = parse_map(map_file);
 	if (map_error(map) != 0)
+	{
+		free_map(map);
+		return (-1);
+	}
+	map_copy = map_dup(map);
+	if (map_copy == NULL)
 	{
 		free_map(map);
 		return (-1);

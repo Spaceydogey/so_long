@@ -59,12 +59,7 @@ static int	check_map_for_error(t_map *map)
 	}
 	return (0);
 }
-/*
-int	has_path()
-{
 
-}
-*/
 int	file_error(char *map_file)
 {
 	int	len;
@@ -82,19 +77,17 @@ int	file_error(char *map_file)
 	}
 	return (0);
 }
-#include <stdio.h>
+
 int	map_error(t_map *map)
 {
 	char		*error_msg;
 	int			check;
-	t_player	*player;
 
 	if (!map)
 	{
 		ft_putstr_fd("Error\nEmpty map file or parsing error\n", 2);
 		return (-1);
 	}
-	player = player_init(map);
 	error_msg = NULL;
 	check = check_map_for_error(map);
 	if (check == -1)
@@ -107,10 +100,6 @@ int	map_error(t_map *map)
 		error_msg = "The number of exit tiles should be 1\n";
 	else if (map->nbr_obj <= 0)
 		error_msg = "The number of collectibles should at least be of 1\n";
-	int test = path_finding(player->x, player->y, map);
-	printf("%d\n",test);
-	if (test == 1)
-		error_msg = "No path \n";
 	if (!error_msg)
 		return (0);
 	ft_putstr_fd("Error\n", 2);
