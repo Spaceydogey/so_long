@@ -6,12 +6,40 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:17:50 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/18 18:54:16 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/21 17:59:07 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <stdio.h>
+void	print_map(t_map *map)
+{
+	int 		i = 0;
+	int			j;
+	char		c;
 
+	while (i < map->nbr_line)
+	{
+		j = 0;
+		while (j < map->len_line)
+		{
+			c = map->map[i][j];
+			if (c == PLAYER)
+				printf("\033[0;34m%c",c);//temp test
+			else if (c == '9')
+				printf("\033[0;31m%c",c);//temp test
+			else if (c == OBJ)
+				printf("\033[0;32m%c",c);//temp test
+			else if (c == EXIT)
+				printf("\033[0;33m%c",c);//temp test
+			else
+				printf("\033[0m%c",c);//temp test
+			j++;
+		}
+		printf("\n");//temp test
+		i++;
+	}
+}
 static int	is_obj_or_exit(char c, t_map *map)
 {
 	if (c == OBJ)
@@ -30,9 +58,17 @@ int	path_finding(int x, int y, t_map *map)
 	char	left;
 	char	right;
 
+//stack overflow on big map ???
+//	static int i;
+//	printf("count : %d\n", i);
+//	i++;
+//	system("clear");
+//	print_map(map);
+//	usleep(15000);
+
 	if (is_obj_or_exit(map->map[y][x], map) == 1)
 		return (1);
-	map->map[y][x] = '1';
+	map->map[y][x] = '9';
 	up = map->map[y - 1][x];
 	down = map->map[y + 1][x];
 	left = map->map[y][x - 1];
@@ -41,10 +77,13 @@ int	path_finding(int x, int y, t_map *map)
 		return (-1);
 	if (up != WALL && up != '9')
 		path_finding(x, y - 1, map);
+	right = map->map[y][x + 1];
 	if (right != WALL && right != '9')
 		path_finding(x + 1, y, map);
+	left = map->map[y][x - 1];
 	if (left != WALL && left != '9')
 		path_finding(x - 1, y, map);
+	down = map->map[y + 1][x];
 	if (down != WALL && down != '9')
 		path_finding(x, y + 1, map);
 	if (is_obj_or_exit(map->map[y][x], map) == 1)
