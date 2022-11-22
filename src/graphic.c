@@ -122,10 +122,16 @@ void	map_to_window(t_arg *arg)
 	sprites.wll = textures_init(mlx, "textures/rock.xpm");
 	sprites.grd = textures_init(mlx, "textures/grass.xpm");
 	sprites.plr = textures_init(mlx, "textures/cat.xpm");
-	sprites.ext = textures_init(mlx, "textures/car.xpm");
+	sprites.ext = textures_init(mlx, "textures/test.xpm");
 	sprites.obj = textures_init(mlx, "textures/shrinp.xpm");
 	frame_buffer(arg, sprites, frame);
+	mlx_destroy_image(mlx, sprites.wll.img);
+	mlx_destroy_image(mlx, sprites.grd.img);
+	mlx_destroy_image(mlx, sprites.ext.img);
+	mlx_destroy_image(mlx, sprites.plr.img);
+	mlx_destroy_image(mlx, sprites.obj.img);
 	mlx_put_image_to_window(mlx, mlx_win, frame.img, 0, 0);
+	mlx_destroy_image(mlx, frame.img);
 }
 
 void	window(t_map *map)

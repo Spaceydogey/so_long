@@ -14,8 +14,26 @@
 # define SO_LONG_H
 # ifdef __linux__
 #  include "../mlx_linux/mlx.h"
+#  define W 119
+#  define S 115
+#  define D 100
+#  define A 97
+#  define UP 65362
+#  define RIGHT 65363
+#  define DOWN 65364
+#  define LEFT 65361
+#  define ESC 65307   
 # else
 #  include "../mlx/mlx.h"
+#  define W 13
+#  define S 1
+#  define D 2
+#  define A 0
+#  define UP 126
+#  define RIGHT 124
+#  define DOWN 125
+#  define LEFT 123
+#  define ESC 53
 # endif
 # include "../libft/libft.h"
 # include "../get_next_line/gnl.h"
@@ -29,12 +47,6 @@
 # define PLAYER 'P'
 
 typedef unsigned int	t_uint;
-
-typedef struct s_obj
-{
-	int				x;
-	int				y;
-}	t_obj;
 
 typedef struct s_map
 {
