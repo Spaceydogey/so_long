@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:57:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/21 18:37:24 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/22 16:20:57 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 # define OBJ 'C'
 # define EXIT 'E'
 # define PLAYER 'P'
-typedef unsigned int uint;
+
+typedef unsigned int	t_uint;
 
 typedef struct s_obj
 {
@@ -69,13 +70,13 @@ typedef struct s_textures
 	t_img	obj;
 }	t_textures;
 
-typedef struct s_cp_pixel
+typedef struct s_pixel
 {
 	int		y_sp;
 	int		x_sp;
 	int		x_fr;
 	int		y_fr;
-}	t_cp_pixel;
+}	t_pixel;
 
 typedef struct s_player
 {
@@ -85,7 +86,7 @@ typedef struct s_player
 	int		is_on_exit;
 }	t_player;
 
-typedef struct	s_arg
+typedef struct s_arg
 {
 	t_map		*map;
 	t_player	*player;
@@ -95,7 +96,8 @@ typedef struct	s_arg
 
 int			key_hook(int keycode, t_arg *arg);
 int			has_path(t_map *map);
-void		map_to_window(void *mlx, void *mlx_win, t_map *map);
+void		map_to_window(t_arg *arg);
+void		set_pixel_color(t_img src, t_img dst, t_pixel pxl);
 void		window(t_map *map);
 int			path_finding(int x, int y, t_map *map);
 t_map		*map_dup(t_map *map);

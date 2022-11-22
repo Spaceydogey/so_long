@@ -6,7 +6,7 @@
 
 NAME = so_long
 
-FILES = main.c parse_map.c error.c utils.c player_mouvement.c path_finding.c graphic.c keyhook.c
+FILES = main.c parse_map.c error.c utils.c player_mouvement.c path_finding.c graphic.c graphic2.c keyhook.c
 
 SRCS = $(addprefix src/, $(FILES))
 
@@ -68,11 +68,11 @@ $(NAME): $(OBJ)
 		@make --no-print-directory -C $(MLX_DIR)
 		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(MLX_DIR)"
 		$(PRINT) "$(CYAN)making:\t$(NOCOLOR)$(NAME)"
-		$(CC) $(CFLAGS) $(FFLAGS) -g $(OBJ) $(LIBFT) $(GNL) $(MLX) -o $(NAME)
+		$(CC) $(FFLAGS) $(CFLAGS) -g $(OBJ) $(LIBFT) $(GNL) $(MLX) -o $(NAME)
 		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(NAME)"
 
 .c.o:
-		$(CC) $(CFLAGS) -g -c $< -o $(<:.c=.o)
+		$(CC) $(CFLAGS) $(FFLAGS) -g -c $< -o $(<:.c=.o)
 
 ###__RULES__###
 all: $(NAME)

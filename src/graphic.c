@@ -6,63 +6,41 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 07:58:52 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/21 20:22:23 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/22 17:42:08 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-// add exit and obj on the map
-static void	pixel_texture_to_frame(t_map *map, t_textures sprite, t_img frame,
-		t_cp_pixel pxl)
-{
-	char	*pxl_clr;
-	uint	clr;
 
-	pxl_clr = frame.addr + ((pxl.y_fr) * frame.line_len + (pxl.x_fr)
-			* (frame.bpp / 8));
-	*(uint *)pxl_clr = *(uint *)(sprite.grd.addr + (pxl.y_sp
-				* sprite.grd.line_len + pxl.x_sp * (sprite.grd.bpp / 8)));
+static void	pixel_texture_to_frame(t_arg *arg, t_textures sprite, t_img frame,
+		t_pixel pxl)
+{
+	t_map		*map;
+	t_player	*player;
+
+	map = arg->map;
+	player = arg->player;
+	set_pixel_color(sprite.grd, frame, pxl);
 	if (map->map[pxl.y_fr / 32][pxl.x_fr / 32] == WALL)
-	{
-		pxl_clr = frame.addr + ((pxl.y_fr)
-				* frame.line_len + (pxl.x_fr) * (frame.bpp / 8));
-		*(uint *)pxl_clr = *(uint *)(sprite.wll.addr + (pxl.y_sp
-					* sprite.wll.line_len + pxl.x_sp * (sprite.wll.bpp / 8)));
-	}
+		set_pixel_color(sprite.wll, frame, pxl);
 	else if (map->map[pxl.y_fr / 32][pxl.x_fr / 32] == PLAYER)
 	{
-		pxl_clr = frame.addr + ((pxl.y_fr)
-				* frame.line_len + (pxl.x_fr) * (frame.bpp / 8));
-		clr = *(uint *)(sprite.plr.addr + (pxl.y_sp
-					* sprite.plr.line_len + pxl.x_sp * (sprite.plr.bpp / 8)));
-		if (clr != 4278190080)
-			*(uint *)pxl_clr = clr;
+		if (player->is_on_exit == 1)
+			set_pixel_color(sprite.ext, frame, pxl);
+		set_pixel_color(sprite.plr, frame, pxl);
 	}
 	else if (map->map[pxl.y_fr / 32][pxl.x_fr / 32] == OBJ)
-	{
-		pxl_clr = frame.addr + ((pxl.y_fr)
-				* frame.line_len + (pxl.x_fr) * (frame.bpp / 8));
-		clr = *(uint *)(sprite.obj.addr + (pxl.y_sp
-					* sprite.obj.line_len + pxl.x_sp * (sprite.obj.bpp / 8)));
-		if (clr != 4278190080)
-			*(uint *)pxl_clr = clr;
-	}
+		set_pixel_color(sprite.obj, frame, pxl);
 	else if (map->map[pxl.y_fr / 32][pxl.x_fr / 32] == EXIT)
-	{
-		pxl_clr = frame.addr + ((pxl.y_fr)
-				* frame.line_len + (pxl.x_fr) * (frame.bpp / 8));
-		clr = *(uint *)(sprite.ext.addr + (pxl.y_sp
-					* sprite.ext.line_len + pxl.x_sp * (sprite.ext.bpp / 8)));
-		if (clr != 4278190080)
-			*(uint *)pxl_clr = clr;
-	}
-
+		set_pixel_color(sprite.ext, frame, pxl);
 }
 
-static t_img	frame_buffer(t_map *map, t_textures sprites, t_img frame)
+static t_img	frame_buffer(t_arg *arg, t_textures sprites, t_img frame)
 {
-	t_cp_pixel	pixel;
+	t_pixel	pixel;
+	t_map	*map;
 
+	map = arg->map;
 	pixel.y_fr = 0;
 	while (pixel.y_fr < map->nbr_line * 32)
 	{
@@ -75,7 +53,7 @@ static t_img	frame_buffer(t_map *map, t_textures sprites, t_img frame)
 				pixel.x_sp = -1;
 				while (++pixel.x_sp < 32)
 				{
-					pixel_texture_to_frame(map, sprites, frame, pixel);
+					pixel_texture_to_frame(arg, sprites, frame, pixel);
 					pixel.x_fr += 1;
 				}
 			}
@@ -96,12 +74,47 @@ static t_img	textures_init(void *mlx, char *path)
 			&sprite.line_len, &sprite.endian);
 	return (sprite);
 }
+/*#include <stdio.h>
+void	print_map(t_map *map)
+{
+	int 		i = 0;
+	int			j;
+	char		c;
 
-void	map_to_window(void *mlx, void *mlx_win, t_map *map)
+	while (i < map->nbr_line)
+	{
+		j = 0;
+		while (j < map->len_line)
+		{
+			c = map->map[i][j];
+			if (c == PLAYER)
+				printf("\033[0;34m%c",c);//temp test
+			else if (c == '9')
+				printf("\033[0;31m%c",c);//temp test
+			else if (c == OBJ)
+				printf("\033[0;32m%c",c);//temp test
+			else if (c == EXIT)
+				printf("\033[0;33m%c",c);//temp test
+			else
+				printf("\033[0m%c",c);//temp test
+			j++;
+		}
+		printf("\n");//temp test
+		i++;
+	}
+}*/
+
+void	map_to_window(t_arg *arg)
 {
 	t_textures	sprites;
 	t_img		frame;
+	t_map		*map;
+	void		*mlx;
+	void		*mlx_win;
 
+	map = arg->map;
+	mlx = arg->mlx;
+	mlx_win = arg->mlx_win;
 	frame.path = NULL;
 	frame.img = mlx_new_image(mlx, map->len_line * 32, map->nbr_line * 32);
 	frame.addr = mlx_get_data_addr(frame.img, &frame.bpp, &frame.line_len,
@@ -111,7 +124,7 @@ void	map_to_window(void *mlx, void *mlx_win, t_map *map)
 	sprites.plr = textures_init(mlx, "textures/cat.xpm");
 	sprites.ext = textures_init(mlx, "textures/car.xpm");
 	sprites.obj = textures_init(mlx, "textures/shrinp.xpm");
-	frame_buffer(map, sprites, frame);
+	frame_buffer(arg, sprites, frame);
 	mlx_put_image_to_window(mlx, mlx_win, frame.img, 0, 0);
 }
 
@@ -124,16 +137,10 @@ void	window(t_map *map)
 
 	player = malloc(sizeof(t_player));
 	if (!player)
-	{
-		//free
-		return ;
-	}
+		exit(EXIT_FAILURE);
 	arg = malloc(sizeof(t_arg));
 	if (!arg)
-	{
-		//free
-		return ;
-	}
+		exit(EXIT_FAILURE);
 	player->x = map->start_x;
 	player->y = map->start_y;
 	player->is_on_exit = 0;
@@ -142,10 +149,10 @@ void	window(t_map *map)
 	arg->player = player;
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, map->len_line * 32, map->nbr_line * 32,
-			"boop");
-	map_to_window(mlx, mlx_win, map);
+			"so_long");
 	arg->mlx = mlx;
 	arg->mlx_win = mlx_win;
+	map_to_window(arg);
 	mlx_key_hook(mlx_win, key_hook, arg);
 	mlx_loop(mlx);
 }
