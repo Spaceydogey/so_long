@@ -6,14 +6,16 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:10:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/23 10:57:04 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/23 14:23:48 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_exit(void)
+int	ft_exit(t_arg *arg)
 {
+	destroy_image(arg->mlx, arg->sprites);
+	mlx_destroy_image(arg->mlx, arg->frame->img);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
@@ -26,7 +28,7 @@ int	key_hook(int keycode, t_arg *arg)
 	if (keycode == ESC
 		|| (arg->player->is_on_exit == 1 && arg->map->nbr_obj == 0))
 	{
-		ft_exit();
+		ft_exit(arg);
 	}
 	if (keycode == W || keycode == UP)
 		check = moveup(arg->player, arg->map);

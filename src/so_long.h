@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:57:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/23 11:24:28 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/23 13:49:38 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ typedef struct s_textures
 
 typedef struct s_pixel
 {
-	int		y_sp;
-	int		x_sp;
 	int		x_fr;
 	int		y_fr;
 }	t_pixel;
@@ -104,15 +102,17 @@ typedef struct s_arg
 	t_player	*player;
 	void		*mlx;
 	void		*mlx_win;
+	t_textures	*sprites;
+	t_img		*frame;
 }	t_arg;
 
 t_arg		*arg_init(void *mlx, void *mlx_win, t_player *player, t_map *map);
 t_player	*player_init(t_map *map);
-void		destroy_image(void *mlx, t_textures sprites);
+void		destroy_image(void *mlx, t_textures *sprites);
 int			key_hook(int keycode, t_arg *arg);
 int			has_path(t_map *map);
 void		map_to_window(t_arg *arg);
-void		set_pixel_color(t_img src, t_img dst, t_pixel pxl);
+void		set_pixel_color(t_img src, t_img *dst, t_pixel pxl);
 void		window(t_map *map);
 int			path_finding(int x, int y, t_map *map);
 t_map		*map_dup(t_map *map);
@@ -126,7 +126,7 @@ int			file_error(char *map_file);
 char		**map_realloc(char **p, size_t size_of, int *nbr_line);
 void		free_table(void **p, int size);
 char		*free_map(t_map *map);
-int			ft_exit(void);
+int			ft_exit(t_arg *arg);
 int			map_error(t_map *map);
 
 #endif
