@@ -6,13 +6,13 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 07:58:52 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/23 13:51:16 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/23 17:11:10 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	pixel_texture_to_frame(t_arg *arg, t_textures *sprite, t_img *frame,
+void	pixel_texture_to_frame(t_arg *arg, t_textures *sprite, t_img *frame,
 		t_pixel pxl)
 {
 	t_map		*map;
@@ -65,43 +65,12 @@ static t_img	textures_init(void *mlx, char *path)
 			&sprite.line_len, &sprite.endian);
 	return (sprite);
 }
-/*#include <stdio.h>
-void	print_map(t_map *map)
-{
-	int 		i = 0;
-	int			j;
-	char		c;
-
-	while (i < map->nbr_line)
-	{
-		j = 0;
-		while (j < map->len_line)
-		{
-			c = map->map[i][j];
-			if (c == PLAYER)
-				printf("\033[0;34m%c",c);//temp test
-			else if (c == '9')
-				printf("\033[0;31m%c",c);//temp test
-			else if (c == OBJ)
-				printf("\033[0;32m%c",c);//temp test
-			else if (c == EXIT)
-				printf("\033[0;33m%c",c);//temp test
-			else
-				printf("\033[0m%c",c);//temp test
-			j++;
-		}
-		printf("\n");//temp test
-		i++;
-	}
-}*/
 
 void	map_to_window(t_arg *arg)
 {
-	t_map		*map;
 	void		*mlx;
 	void		*mlx_win;
 
-	map = arg->map;
 	mlx = arg->mlx;
 	mlx_win = arg->mlx_win;
 	frame_buffer(arg);
@@ -124,7 +93,8 @@ void	window(t_map *map)
 	if (!mlx_win)
 		exit(EXIT_FAILURE);
 	arg = arg_init(mlx, mlx_win, player, map);
-	arg->frame->img = mlx_new_image(mlx, map->len_line * 32, map->nbr_line * 32);
+	arg->frame->img = mlx_new_image(mlx, map->len_line * 32,
+			map->nbr_line * 32);
 	arg->frame->addr = mlx_get_data_addr(arg->frame->img, &arg->frame->bpp,
 			&arg->frame->line_len, &arg->frame->endian);
 	arg->frame->path = NULL;

@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:57:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/23 13:49:38 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/23 17:09:27 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,10 @@ typedef struct s_arg
 	t_img		*frame;
 }	t_arg;
 
+void		srpite_to_window(t_arg *arg);
+void		new_square(t_arg *arg);
+void		pixel_texture_to_frame(t_arg *arg, t_textures *sprite,
+				t_img *frame, t_pixel pxl);
 t_arg		*arg_init(void *mlx, void *mlx_win, t_player *player, t_map *map);
 t_player	*player_init(t_map *map);
 void		destroy_image(void *mlx, t_textures *sprites);
@@ -116,10 +120,10 @@ void		set_pixel_color(t_img src, t_img *dst, t_pixel pxl);
 void		window(t_map *map);
 int			path_finding(int x, int y, t_map *map);
 t_map		*map_dup(t_map *map);
-int			moveright(t_player *player, t_map *map);
-int			moveleft(t_player *player, t_map *map);
-int			moveup(t_player *player, t_map *map);
-int			movedown(t_player *player, t_map *map);
+int			moveright(t_arg *arg);
+int			moveleft(t_arg *arg);
+int			moveup(t_arg *arg);
+int			movedown(t_arg *arg);
 char		*free_tab(char **tab, int nbr_line);
 t_map		*parse_map(char *map_file);
 int			file_error(char *map_file);

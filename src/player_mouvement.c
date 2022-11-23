@@ -6,132 +6,123 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:14:16 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/23 10:51:36 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/23 17:12:34 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-/*
-t_player	*player_init(t_map *map)
-{
-	t_player	*player;
 
-	player = malloc(sizeof(t_player));
-	if (!player)
-		return (NULL);
-	player->x = map->start_x;
-	player->y = map->start_y;
-	return (player);
-}
-*/
-int	moveup(t_player *player, t_map *map)
+int	moveup(t_arg *arg)
 {
-	if (map->map[player->y - 1][player->x] != WALL)
+	if (arg->map->map[arg->player->y - 1][arg->player->x] != WALL)
 	{
-		if (map->map[player->y - 1][player->x] == OBJ)
+		if (arg->map->map[arg->player->y - 1][arg->player->x] == OBJ)
 		{
-			map->map[player->y][player->x] = '0';
-			map->nbr_obj -= 1;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+			arg->map->nbr_obj -= 1;
 		}
-		else if (map->map[player->y - 1][player->x] == EXIT)
+		else if (arg->map->map[arg->player->y - 1][arg->player->x] == EXIT)
 		{
-			map->map[player->y][player->x] = '0';
-			player->is_on_exit = 1;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+			arg->player->is_on_exit = 1;
 		}
-		else if (player->is_on_exit == 1)
+		else if (arg->player->is_on_exit == 1)
 		{
-			map->map[player->y][player->x] = EXIT;
-			player->is_on_exit = 0;
+			arg->map->map[arg->player->y][arg->player->x] = EXIT;
+			arg->player->is_on_exit = 0;
 		}
 		else
-			map->map[player->y][player->x] = '0';
-		player->y -= 1;
-		map->map[player->y][player->x] = PLAYER;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+		srpite_to_window(arg);
+		arg->player->y -= 1;
+		arg->map->map[arg->player->y][arg->player->x] = PLAYER;
 		return (0);
 	}
 	return (-1);
 }
 
-int	movedown(t_player *player, t_map *map)
+int	movedown(t_arg *arg)
 {
-	if (map->map[player->y + 1][player->x] != WALL)
+	if (arg->map->map[arg->player->y + 1][arg->player->x] != WALL)
 	{
-		if (map->map[player->y + 1][player->x] == OBJ)
+		if (arg->map->map[arg->player->y + 1][arg->player->x] == OBJ)
 		{
-			map->map[player->y][player->x] = '0';
-			map->nbr_obj -= 1;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+			arg->map->nbr_obj -= 1;
 		}
-		else if (map->map[player->y + 1][player->x] == EXIT)
+		else if (arg->map->map[arg->player->y + 1][arg->player->x] == EXIT)
 		{
-			map->map[player->y][player->x] = '0';
-			player->is_on_exit = 1;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+			arg->player->is_on_exit = 1;
 		}
-		else if (player->is_on_exit == 1)
+		else if (arg->player->is_on_exit == 1)
 		{
-			map->map[player->y][player->x] = EXIT;
-			player->is_on_exit = 0;
+			arg->map->map[arg->player->y][arg->player->x] = EXIT;
+			arg->player->is_on_exit = 0;
 		}
 		else
-			map->map[player->y][player->x] = '0';
-		player->y += 1;
-		map->map[player->y][player->x] = PLAYER;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+		srpite_to_window(arg);
+		arg->player->y += 1;
+		arg->map->map[arg->player->y][arg->player->x] = PLAYER;
 		return (0);
 	}
 	return (-1);
 }
 
-int	moveleft(t_player *player, t_map *map)
+int	moveleft(t_arg *arg)
 {
-	if (map->map[player->y][player->x - 1] != WALL)
+	if (arg->map->map[arg->player->y][arg->player->x - 1] != WALL)
 	{
-		if (map->map[player->y][player->x - 1] == OBJ)
+		if (arg->map->map[arg->player->y][arg->player->x - 1] == OBJ)
 		{
-			map->map[player->y][player->x] = '0';
-			map->nbr_obj -= 1;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+			arg->map->nbr_obj -= 1;
 		}
-		else if (map->map[player->y][player->x - 1] == EXIT)
+		else if (arg->map->map[arg->player->y][arg->player->x - 1] == EXIT)
 		{
-			map->map[player->y][player->x] = '0';
-			player->is_on_exit = 1;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+			arg->player->is_on_exit = 1;
 		}
-		else if (player->is_on_exit == 1)
+		else if (arg->player->is_on_exit == 1)
 		{
-			player->is_on_exit = 0;
-			map->map[player->y][player->x] = EXIT;
+			arg->player->is_on_exit = 0;
+			arg->map->map[arg->player->y][arg->player->x] = EXIT;
 		}
 		else
-			map->map[player->y][player->x] = '0';
-		player->x -= 1;
-		map->map[player->y][player->x] = PLAYER;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+		srpite_to_window(arg);
+		arg->player->x -= 1;
+		arg->map->map[arg->player->y][arg->player->x] = PLAYER;
 		return (0);
 	}
 	return (-1);
 }
 
-int	moveright(t_player *player, t_map *map)
+int	moveright(t_arg *arg)
 {
-	if (map->map[player->y][player->x + 1] != WALL)
+	if (arg->map->map[arg->player->y][arg->player->x + 1] != WALL)
 	{
-		if (map->map[player->y][player->x + 1] == OBJ)
+		if (arg->map->map[arg->player->y][arg->player->x + 1] == OBJ)
 		{
-			map->map[player->y][player->x] = '0';
-			map->nbr_obj -= 1;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+			arg->map->nbr_obj -= 1;
 		}
-		else if (map->map[player->y][player->x + 1] == EXIT)
+		else if (arg->map->map[arg->player->y][arg->player->x + 1] == EXIT)
 		{
-			map->map[player->y][player->x] = '0';
-			map->map[player->y][player->x] = PLAYER;
-			player->is_on_exit = 1;
-		}
-		else if (player->is_on_exit == 1)
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+			arg->player->is_on_exit = 1;
+		}	
+		else if (arg->player->is_on_exit == 1)
 		{
-			player->is_on_exit = 0;
-			map->map[player->y][player->x] = EXIT;
+			arg->player->is_on_exit = 0;
+			arg->map->map[arg->player->y][arg->player->x] = EXIT;
 		}
 		else
-			map->map[player->y][player->x] = '0';
-		player->x += 1;
-		map->map[player->y][player->x] = PLAYER;
+			arg->map->map[arg->player->y][arg->player->x] = '0';
+		srpite_to_window(arg);
+		arg->player->x += 1;
+		arg->map->map[arg->player->y][arg->player->x] = PLAYER;
 		return (0);
 	}
 	return (-1);

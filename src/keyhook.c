@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:10:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/23 14:23:48 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/23 17:12:43 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ int	key_hook(int keycode, t_arg *arg)
 		ft_exit(arg);
 	}
 	if (keycode == W || keycode == UP)
-		check = moveup(arg->player, arg->map);
+		check = moveup(arg);
 	if (keycode == S || keycode == DOWN)
-		check = movedown(arg->player, arg->map);
+		check = movedown(arg);
 	if (keycode == D || keycode == RIGHT)
-		check = moveright(arg->player, arg->map);
+		check = moveright(arg);
 	if (keycode == A || keycode == LEFT)
-		check = moveleft(arg->player, arg->map);
+		check = moveleft(arg);
 	if (check == -1)
 		return (-1);
+	srpite_to_window(arg);
 	arg->player->steps += 1;
 	ft_putnbr_fd(arg->player->steps, 1);
 	ft_putchar_fd('\n', 1);
-	map_to_window(arg);
 	return (0);
 }
