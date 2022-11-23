@@ -6,23 +6,27 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:10:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/22 16:20:13 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/23 10:57:04 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-#include <stdio.h>
+int	ft_exit(void)
+{
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
 int	key_hook(int keycode, t_arg *arg)
 {
 	int	check;
 
 	check = -1;
-//	printf("%d, %c\n", keycode, keycode);//temp test
-	if (keycode == ESC || (arg->player->is_on_exit == 1 && arg->map->nbr_obj == 0))
+	if (keycode == ESC
+		|| (arg->player->is_on_exit == 1 && arg->map->nbr_obj == 0))
 	{
-	//	system("leaks so_long");
-		exit(EXIT_SUCCESS);
+		ft_exit();
 	}
 	if (keycode == W || keycode == UP)
 		check = moveup(arg->player, arg->map);
@@ -35,8 +39,8 @@ int	key_hook(int keycode, t_arg *arg)
 	if (check == -1)
 		return (-1);
 	arg->player->steps += 1;
-	ft_putnbr_fd(arg->player->steps, 1); 
-	ft_putchar_fd('\n', 1); 
+	ft_putnbr_fd(arg->player->steps, 1);
+	ft_putchar_fd('\n', 1);
 	map_to_window(arg);
 	return (0);
 }

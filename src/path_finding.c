@@ -6,11 +6,12 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:17:50 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/22 14:42:11 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/23 11:24:01 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 static int	is_obj_or_exit(char c, t_map *map)
 {
 	if (c == OBJ)
@@ -22,23 +23,13 @@ static int	is_obj_or_exit(char c, t_map *map)
 	return (0);
 }
 
-int	path_finding(int x, int y, t_map *map)
-{
+static int	pf_check(int x, int y, t_map *map)
+{	
 	char	up;
 	char	down;
 	char	left;
 	char	right;
 
-//stack overflow on big map ???
-//	static int i;
-//	printf("count : %d\n", i);
-//	i++;
-//	system("clear");
-//	print_map(map);
-//	usleep(15000);
-
-	if (is_obj_or_exit(map->map[y][x], map) == 1)
-		return (1);
 	map->map[y][x] = '9';
 	up = map->map[y - 1][x];
 	down = map->map[y + 1][x];
@@ -57,6 +48,16 @@ int	path_finding(int x, int y, t_map *map)
 	down = map->map[y + 1][x];
 	if (down != WALL && down != '9')
 		path_finding(x, y + 1, map);
+	return (1);
+}
+
+//stack overflow on big map ???
+int	path_finding(int x, int y, t_map *map)
+{
+	if (is_obj_or_exit(map->map[y][x], map) == 1)
+		return (1);
+	if (pf_check(x, y, map) == -1)
+		return (-1);
 	if (is_obj_or_exit(map->map[y][x], map) == 1)
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 07:58:52 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/22 17:42:08 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/23 10:52:38 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,7 @@ void	map_to_window(t_arg *arg)
 	sprites.ext = textures_init(mlx, "textures/test.xpm");
 	sprites.obj = textures_init(mlx, "textures/shrinp.xpm");
 	frame_buffer(arg, sprites, frame);
-	mlx_destroy_image(mlx, sprites.wll.img);
-	mlx_destroy_image(mlx, sprites.grd.img);
-	mlx_destroy_image(mlx, sprites.ext.img);
-	mlx_destroy_image(mlx, sprites.plr.img);
-	mlx_destroy_image(mlx, sprites.obj.img);
+	destroy_image(mlx, sprites);
 	mlx_put_image_to_window(mlx, mlx_win, frame.img, 0, 0);
 	mlx_destroy_image(mlx, frame.img);
 }
@@ -138,27 +134,20 @@ void	window(t_map *map)
 {
 	void		*mlx;
 	void		*mlx_win;
-	t_player	*player;
 	t_arg		*arg;
+	t_player	*player;
 
-	player = malloc(sizeof(t_player));
-	if (!player)
-		exit(EXIT_FAILURE);
-	arg = malloc(sizeof(t_arg));
-	if (!arg)
-		exit(EXIT_FAILURE);
-	player->x = map->start_x;
-	player->y = map->start_y;
-	player->is_on_exit = 0;
-	player->steps = 0;
-	arg->map = map;
-	arg->player = player;
+	player = player_init(map);
 	mlx = mlx_init();
+	if (!mlx)
+		exit(EXIT_FAILURE);
 	mlx_win = mlx_new_window(mlx, map->len_line * 32, map->nbr_line * 32,
 			"so_long");
-	arg->mlx = mlx;
-	arg->mlx_win = mlx_win;
+	if (!mlx_win)
+		exit(EXIT_FAILURE);
+	arg = arg_init(mlx, mlx_win, player, map);
 	map_to_window(arg);
+	mlx_hook(mlx_win, 17, 0, ft_exit, NULL);
 	mlx_key_hook(mlx_win, key_hook, arg);
 	mlx_loop(mlx);
 }
