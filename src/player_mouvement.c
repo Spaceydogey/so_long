@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:14:16 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/23 17:12:34 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/24 10:37:29 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	moveup(t_arg *arg)
 		}
 		else
 			arg->map->map[arg->player->y][arg->player->x] = '0';
-		srpite_to_window(arg);
+		sprite_to_window(arg);
 		arg->player->y -= 1;
 		arg->map->map[arg->player->y][arg->player->x] = PLAYER;
 		return (0);
@@ -62,7 +62,7 @@ int	movedown(t_arg *arg)
 		}
 		else
 			arg->map->map[arg->player->y][arg->player->x] = '0';
-		srpite_to_window(arg);
+		sprite_to_window(arg);
 		arg->player->y += 1;
 		arg->map->map[arg->player->y][arg->player->x] = PLAYER;
 		return (0);
@@ -91,7 +91,7 @@ int	moveleft(t_arg *arg)
 		}
 		else
 			arg->map->map[arg->player->y][arg->player->x] = '0';
-		srpite_to_window(arg);
+		sprite_to_window(arg);
 		arg->player->x -= 1;
 		arg->map->map[arg->player->y][arg->player->x] = PLAYER;
 		return (0);
@@ -120,7 +120,7 @@ int	moveright(t_arg *arg)
 		}
 		else
 			arg->map->map[arg->player->y][arg->player->x] = '0';
-		srpite_to_window(arg);
+		sprite_to_window(arg);
 		arg->player->x += 1;
 		arg->map->map[arg->player->y][arg->player->x] = PLAYER;
 		return (0);

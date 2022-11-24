@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:10:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/23 17:12:43 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/24 10:27:42 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	key_hook(int keycode, t_arg *arg)
 		check = moveleft(arg);
 	if (check == -1)
 		return (-1);
-	srpite_to_window(arg);
+	sprite_to_window(arg);
 	arg->player->steps += 1;
 	ft_putnbr_fd(arg->player->steps, 1);
 	ft_putchar_fd('\n', 1);

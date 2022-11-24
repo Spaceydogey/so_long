@@ -6,11 +6,36 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:29:55 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/18 09:21:34 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/24 10:36:20 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	check_map(t_map *map)
+{
+	t_map	*map_copy;
+
+	if (map_error(map) != 0)
+	{
+		free_map(map);
+		return (-1);
+	}
+	map_copy = map_dup(map);
+	if (!map_copy)
+	{
+		free_map(map);
+		return (-1);
+	}
+	if (has_path(map_copy) != 0)
+	{
+		free_map(map_copy);
+		free_map(map);
+		return (-1);
+	}
+	free_map(map_copy);
+	return (0);
+}
 
 static char	*gnl_trim(int fd)
 {

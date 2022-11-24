@@ -6,37 +6,11 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 10:45:57 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/23 15:39:21 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/24 10:36:18 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
-
-static int	check_map(t_map *map)
-{
-	t_map	*map_copy;
-
-	if (map_error(map) != 0)
-	{
-		free_map(map);
-		return (-1);
-	}
-	map_copy = map_dup(map);
-	if (!map_copy)
-	{
-		free_map(map);
-		return (-1);
-	}
-	if (has_path(map_copy) != 0)
-	{
-		free_map(map_copy);
-		free_map(map);
-		return (-1);
-	}
-	free_map(map_copy);
-	return (0);
-}
 
 int	main(int ac, char **av)
 {

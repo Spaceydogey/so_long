@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:57:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/23 17:09:27 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/24 10:31:20 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,17 +106,14 @@ typedef struct s_arg
 	t_img		*frame;
 }	t_arg;
 
-void		srpite_to_window(t_arg *arg);
-void		new_square(t_arg *arg);
+int			check_map(t_map *map);
+void		sprite_to_window(t_arg *arg);
 void		pixel_texture_to_frame(t_arg *arg, t_textures *sprite,
 				t_img *frame, t_pixel pxl);
-t_arg		*arg_init(void *mlx, void *mlx_win, t_player *player, t_map *map);
-t_player	*player_init(t_map *map);
 void		destroy_image(void *mlx, t_textures *sprites);
 int			key_hook(int keycode, t_arg *arg);
 int			has_path(t_map *map);
 void		map_to_window(t_arg *arg);
-void		set_pixel_color(t_img src, t_img *dst, t_pixel pxl);
 void		window(t_map *map);
 int			path_finding(int x, int y, t_map *map);
 t_map		*map_dup(t_map *map);
