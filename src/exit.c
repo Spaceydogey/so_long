@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:51:08 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/24 11:45:38 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/24 17:24:53 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_exit_failure(t_arg *arg)
 {
 	destroy_image(arg->mlx, arg->sprites);
 	mlx_destroy_image(arg->mlx, arg->frame->img);
+	ft_putstr_fd("Error\n", 1);
 	exit(EXIT_FAILURE);
 	return (0);
 }
