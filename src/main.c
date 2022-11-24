@@ -26,6 +26,11 @@ int	main(int ac, char **av)
 	if (file_error(map_file) != 0)
 		return (-1);
 	map = parse_map(map_file);
+	if (!map)
+	{
+		ft_putstr_fd("Error\nEmpty file\n", 2);
+		return (-1);
+	}
 	if (check_map(map) != 0)
 		return (-1);
 	window(map);

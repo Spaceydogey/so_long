@@ -22,6 +22,7 @@ static int	is_obj_or_exit(char c, t_map *map)
 		return (1);
 	return (0);
 }
+
 static void	rec(int x, int y, t_map *map)
 {
 	path_finding(x, y, map);
