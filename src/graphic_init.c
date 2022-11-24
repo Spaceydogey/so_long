@@ -72,7 +72,7 @@ static void	arg_sprites_init(t_arg *arg)
 	arg->sprites->wll = textures_init(arg, "textures/rock.xpm");
 	arg->sprites->grd = textures_init(arg, "textures/grass.xpm");
 	arg->sprites->plr = textures_init(arg, "textures/cat.xpm");
-	arg->sprites->ext = textures_init(arg, "textures/test.xpm");
+	arg->sprites->ext = textures_init(arg, "textures/stairs.xpm");
 	arg->sprites->obj = textures_init(arg, "textures/shrinp.xpm");
 }
 
