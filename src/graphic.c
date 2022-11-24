@@ -32,6 +32,7 @@ static void	new_square(t_arg *arg)
 		}
 		pixel->y_fr += 1;
 	}
+	free(pixel);
 }
 
 void	sprite_to_window(t_arg *arg)
