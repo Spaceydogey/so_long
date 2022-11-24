@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 07:58:52 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/24 10:23:24 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/24 11:27:28 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	new_square(t_arg *arg)
 
 	pixel = malloc(sizeof(t_pixel));
 	if (!pixel)
-		exit(EXIT_FAILURE);
+		ft_exit_failure(arg);
 	map = arg->map;
 	pixel->y_fr = 32 * arg->player->y;
 	while (pixel->y_fr < 32 * arg->player->y + 32)
@@ -79,9 +79,14 @@ void	map_to_window(t_arg *arg)
 
 void	destroy_image(void *mlx, t_textures *sprites)
 {
-	mlx_destroy_image(mlx, sprites->wll.img);
-	mlx_destroy_image(mlx, sprites->grd.img);
-	mlx_destroy_image(mlx, sprites->ext.img);
-	mlx_destroy_image(mlx, sprites->plr.img);
-	mlx_destroy_image(mlx, sprites->obj.img);
+	if (sprites->wll.img)
+		mlx_destroy_image(mlx, sprites->wll.img);
+	if (sprites->grd.img)
+		mlx_destroy_image(mlx, sprites->grd.img);
+	if (sprites->ext.img)
+		mlx_destroy_image(mlx, sprites->ext.img);
+	if (sprites->plr.img)
+		mlx_destroy_image(mlx, sprites->plr.img);
+	if (sprites->obj.img)
+		mlx_destroy_image(mlx, sprites->obj.img);
 }

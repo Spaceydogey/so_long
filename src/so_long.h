@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:57:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/24 10:31:20 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/24 11:27:32 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ int			file_error(char *map_file);
 char		**map_realloc(char **p, size_t size_of, int *nbr_line);
 void		free_table(void **p, int size);
 char		*free_map(t_map *map);
-int			ft_exit(t_arg *arg);
+int			ft_exit_success(t_arg *arg);
+int			ft_exit_failure(t_arg *arg);
 int			map_error(t_map *map);
 
 #endif

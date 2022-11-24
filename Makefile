@@ -6,7 +6,7 @@
 
 NAME = so_long
 
-FILES = main.c parse_map.c error.c utils.c player_mouvement.c path_finding.c graphic.c graphic_pixel.c graphic_init.c keyhook.c
+FILES = main.c parse_map.c error.c utils.c player_mouvement.c path_finding.c graphic.c graphic_pixel.c graphic_init.c keyhook.c exit.c
 
 SRCS = $(addprefix src/, $(FILES))
 
