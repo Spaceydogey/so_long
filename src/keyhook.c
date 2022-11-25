@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:10:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/25 12:03:10 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/25 14:27:37 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	key_hook(int keycode, t_arg *arg)
 	char	*steps;
 
 	check = -1;
-	if (keycode == ESC
-		|| (arg->player->is_on_exit == 1 && arg->map->nbr_obj == 0))
+	if (keycode == ESC)
 		ft_exit_success(arg);
 	if (keycode == W || keycode == UP)
 		check = moveup(arg);
@@ -37,5 +36,7 @@ int	key_hook(int keycode, t_arg *arg)
 	ft_putendl_fd(steps, 1);
 	mlx_string_put(arg->mlx, arg->mlx_win, 3, 10, 16711680, steps);
 	free(steps);
+	if (arg->player->is_on_exit == 1 && arg->map->nbr_obj == 0)
+		ft_next(arg);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 09:56:15 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/24 11:27:26 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/25 14:35:30 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,17 @@ static void	arg_sprites_init(t_arg *arg)
 	arg->sprites->obj = textures_init(arg, "textures/shrinp.xpm");
 }
 
-void	window(t_map *map)
+void	window(t_map *map, int ac, char **av)
 {
 	t_arg		*arg;
 
 	arg = arg_init(map);
+	arg->av = NULL;
+	if (ac > 2)
+	{
+		arg->av = &av[1];
+		arg->av[0] = av[0];
+	}
 	arg->frame->img = mlx_new_image(arg->mlx, map->len_line * 32,
 			map->nbr_line * 32);
 	if (!arg->frame->addr)

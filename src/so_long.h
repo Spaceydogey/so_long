@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:57:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/24 11:27:32 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/25 14:24:08 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,10 @@ typedef struct s_arg
 	void		*mlx_win;
 	t_textures	*sprites;
 	t_img		*frame;
+	char		**av;
 }	t_arg;
 
+int			ft_next(t_arg *arg);
 int			check_map(t_map *map);
 void		sprite_to_window(t_arg *arg);
 void		pixel_texture_to_frame(t_arg *arg, t_textures *sprite,
@@ -114,7 +116,7 @@ void		destroy_image(void *mlx, t_textures *sprites);
 int			key_hook(int keycode, t_arg *arg);
 int			has_path(t_map *map);
 void		map_to_window(t_arg *arg);
-void		window(t_map *map);
+void		window(t_map *map, int ac, char **av);
 int			path_finding(int x, int y, t_map *map);
 t_map		*map_dup(t_map *map);
 int			moveright(t_arg *arg);
