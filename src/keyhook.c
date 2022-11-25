@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:10:02 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/24 11:45:36 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/25 12:03:10 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	key_hook(int keycode, t_arg *arg)
 {
-	int	check;
+	int		check;
+	char	*steps;
 
 	check = -1;
 	if (keycode == ESC
@@ -32,7 +33,9 @@ int	key_hook(int keycode, t_arg *arg)
 		return (-1);
 	sprite_to_window(arg);
 	arg->player->steps += 1;
-	ft_putnbr_fd(arg->player->steps, 1);
-	ft_putchar_fd('\n', 1);
+	steps = ft_itoa(arg->player->steps);
+	ft_putendl_fd(steps, 1);
+	mlx_string_put(arg->mlx, arg->mlx_win, 3, 10, 16711680, steps);
+	free(steps);
 	return (0);
 }
