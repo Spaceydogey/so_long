@@ -6,12 +6,12 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:30:21 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/15 11:05:17 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/28 09:00:27 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
+
 
 int	gn_strlen(const char *s)
 {
