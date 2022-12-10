@@ -83,7 +83,7 @@ void	window(t_map *map)
 	arg = arg_init(map);
 	arg->frame->img = mlx_new_image(arg->mlx, map->len_line * 32,
 			map->nbr_line * 32);
-	if (!arg->frame->addr)
+	if (!arg->frame->img)
 		exit(EXIT_FAILURE);
 	arg->frame->addr = mlx_get_data_addr(arg->frame->img, &arg->frame->bpp,
 			&arg->frame->line_len, &arg->frame->endian);
