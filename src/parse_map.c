@@ -6,11 +6,12 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:29:55 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/24 10:36:20 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/24 16:30:15 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <stdio.h>
 
 int	check_map(t_map *map)
 {

@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:41:17 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/11/21 09:58:45 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/11/24 16:30:13 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,6 @@ int	map_error(t_map *map)
 	char		*error_msg;
 	int			check;
 
-	if (!map)
-	{
-		ft_putstr_fd("Error\nEmpty file\n", 2);
-		return (-1);
-	}
 	error_msg = NULL;
 	check = check_map_for_error(map);
 	if (check == -1)
@@ -110,6 +105,8 @@ int	map_error(t_map *map)
 		error_msg = "Error\nThe number of exit tiles should be 1\n";
 	else if (map->nbr_obj <= 0)
 		error_msg = "Error\nThe number of collectibles should at least be of 1\n";
+	else if (map->error > 0)
+		error_msg = "Error\nUnknown character in the map\n";
 	if (!error_msg)
 		return (0);
 	ft_putstr_fd(error_msg, 2);
